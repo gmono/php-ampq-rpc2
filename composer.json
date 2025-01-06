@@ -5,7 +5,7 @@
 
     "autoload": {
         "psr-4": {
-            "AmqpRPC": "src/"
+            "AmqpRPC\\": "src/"
         }
     },
     "require": {
