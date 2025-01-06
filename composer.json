@@ -1,5 +1,5 @@
 {
-    "name": "amqp-rpc",
+    "name": "gmono/amqp-rpc",
     "description": "a packages using amqplib to call remote services",
     "type": "library",
 
