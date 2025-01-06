@@ -1,0 +1,15 @@
+{
+    "name": "amqp-rpc",
+    "description": "a packages using amqplib to call remote services",
+    "type": "library",
+
+    "autoload": {
+        "psr-4": {
+            "AmqpRPC": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.2 <8.0",
+        "php-amqplib/php-amqplib": "^3.6"
+    }
+}
