@@ -6,6 +6,13 @@ async call(serviceid,funcname,pars:[])->json result
 
 ## 基本使用
 主要类:RPCClient
-配置项:
-1. ACK安全模式（每次消息等待ACK 超时重发 重复忽略)，会增加延迟
+自动装配：
+1. 注入RPCClient类型到服务容器中
+2. 注入IRPCClient单例到或factory服务容器中
 
+手动指定port:
+1. 直接注入一个创建好的RPCClient对象到服务容器中
+
+## Ports
+1. LocalRPCPort 调试用port，本地异步调用
+2. 
