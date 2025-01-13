@@ -17,7 +17,7 @@ class LocalRPCPort implements IRPCPort {
   /**
    * @inheritDoc
    */
-  public function getServices(): Promise\PromiseInterface {
+  public function getInstanceInfos(): Promise\PromiseInterface {
   }
   
   /**
