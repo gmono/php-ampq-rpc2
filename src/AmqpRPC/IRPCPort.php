@@ -9,6 +9,9 @@ use Rx\ObservableInterface;
  */
 interface IRPCPort
 {
+
+    //异步初始化对象
+    public function init():PromiseInterface;
     // 发送一个 RPC 消息
     public function send(RPCMessage $message): PromiseInterface;
 
@@ -24,10 +27,17 @@ interface IRPCPort
  * 每个实例可以实现多个服务
  * 每次注册一个实例 
  */
-class RPCServerInfo
+class RPCInstanceInfo
 {
     public $serviceId = [];
     public $instanceId = "";
+    public function checkValid()
+    {
+        return $this->serviceId != null &&
+            count($this->serviceId) > 0 &&
+            $this->instanceId != null &&
+            trim($this->instanceId) != "";
+    }
 }
 
 
