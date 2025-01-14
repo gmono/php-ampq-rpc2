@@ -18,6 +18,7 @@ interface IRPCPort
     // 接收一个 RPC 消息
     public function receive(): ObservableInterface;
     //rpc实例注册表 返回一个实例列表 通常通过组播搜集 超时5秒
+    //基本接口只提供一个global服务和一个global实例 只支持单调用
     public function getInstanceInfos(): PromiseInterface;
 }
 

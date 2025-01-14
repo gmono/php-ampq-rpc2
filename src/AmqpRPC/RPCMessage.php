@@ -10,6 +10,7 @@ class RPCMessage
   public $params;    // 参数
   public $result;    // 返回结果
   public $error;     // 错误信息
+  public $callMode=0;//1表示safe调用
 
   
   //在调用时表示多调用消息 返回时表示多调用返回中的一条消息
