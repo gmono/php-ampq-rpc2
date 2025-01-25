@@ -14,6 +14,7 @@ class RPCMessage
   public $callMode=0;//1表示safe调用 safe模式需要ack 保证
   public $sendType=0;//0表示确定单调用 1表示随机调用 2表示服务组调用 3 表示全局调用 其中2 3 为多返回
 
+  //是否为多返回值
   public function isMultiReturn(){
     return $this->sendType==2||$this->sendType==3;
   }

@@ -5,22 +5,22 @@ use Ramsey\Uuid\Guid\Guid;
 use React\Promise\Deferred;
 use react\Promise;
 use Rx\Scheduler;
-function startLoop()
-{
-    $loop = Factory::create();
-    //You only need to set the default scheduler once
-    Scheduler::setDefaultFactory(function () use ($loop) {
-        return new EventLoopScheduler($loop);
-    });
+// function startLoop()
+// {
+//     $loop = Factory::create();
+//     //You only need to set the default scheduler once
+//     Scheduler::setDefaultFactory(function () use ($loop) {
+//         return new EventLoopScheduler($loop);
+//     });
 
-}
+// }
 
-//普通单调用和多调用 
+//rpc endpoint 对等点
 class RPCClient
 {
     private $port;
     private $cbks = [];
-    public function __construct(IRPCPort $port)
+    public function __construct(IRPCCallPort $port)
     {
         $this->port = $port;
         $this->mount();
@@ -71,6 +71,7 @@ class RPCClient
             $this->dispose->dispose();
         }
     }
+    //错误回调
     private $errs = [];
     // 发送请求并接收响应
     //普通队列调用
@@ -80,7 +81,7 @@ class RPCClient
         $rpcMessage = RPCMessage::createCall($callid, $serviceid, $method, $params);
         // 异步发送消息
         $res = new Deferred();
-        $this->port->sendRandom($rpcMessage);
+        $this->port->send($rpcMessage);
         //增加回调
         $this->cbks[$callid] = function ($data) use ($res) {
             $res->resolve($data);

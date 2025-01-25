@@ -1,6 +1,6 @@
 <?php
 namespace AmqpRPC\Ports;
-use AmqpRPC\IRPCPort;
+use AmqpRPC\IRPCCallPort;
 use AmqpRPC\RPCInstanceInfo;
 use AmqpRPC\RPCServiceInfo;
 use AmqpRPC\RPCServiceRegisterList;
@@ -15,7 +15,7 @@ use function React\Promise\resolve;
 /**
  * 测试用的本地port 本地异步调用 直接消息传递 作为注册服务器同时作为port 支持注册多服务 支持泛调用和随机调用 以及指定调用
  */
-class LocalRPCPort implements IRPCPort {
+class LocalRPCPort implements IRPCCallPort {
    
   private $table;
   public function __construct() {
