@@ -12,9 +12,8 @@ interface IRPCPort
 
     //异步初始化对象
     public function init():PromiseInterface;
-    // 发送一个 RPC 消息
+    // 发送调用消息 自动根据参数选择发送方式
     public function send(RPCMessage $message): PromiseInterface;
-
     // 接收一个 RPC 消息
     public function receive(): ObservableInterface;
     //rpc实例注册表 返回一个实例列表 通常通过组播搜集 超时5秒

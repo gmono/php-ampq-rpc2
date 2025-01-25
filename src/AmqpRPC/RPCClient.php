@@ -80,7 +80,7 @@ class RPCClient
         $rpcMessage = RPCMessage::createCall($callid, $serviceid, $method, $params);
         // 异步发送消息
         $res = new Deferred();
-        $this->port->send($rpcMessage);
+        $this->port->sendRandom($rpcMessage);
         //增加回调
         $this->cbks[$callid] = function ($data) use ($res) {
             $res->resolve($data);
@@ -93,7 +93,7 @@ class RPCClient
 
     }
 
-    //普通多调用
+    //普通多调用 
     public function callMulti($serviceid,$method,$params=null){
         
     }

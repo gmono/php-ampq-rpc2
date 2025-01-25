@@ -36,7 +36,7 @@ class LocalRPCPort implements IRPCPort {
   /**
    * @inheritDoc
    */
-  public function send(\AmqpRPC\RPCMessage $message): Promise\PromiseInterface {
+  public function sendRandom(\AmqpRPC\RPCMessage $message): Promise\PromiseInterface {
   }
   /**
    * @inheritDoc
