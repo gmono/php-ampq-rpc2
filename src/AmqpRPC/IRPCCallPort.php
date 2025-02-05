@@ -92,10 +92,9 @@ class RPCEndpoint{
             //"service.call"
         }
     }
+    //执行初始化
     public function init(){
-        $this->messagePort->receive(){
-
-        }
+        $this->messagePort->receive();
     }
     //监听对某个服务的调用消息
     public function receiveCall($service):ObservableInterface{
