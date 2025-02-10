@@ -109,10 +109,13 @@ class ResultCallback
         $func($t);
       }
     }
+    //设置为已经调用
+    $this->called=true;
   }
   //如果是单调用会自动调用
   public function putResult(HttpRPCResult $obj)
   {
+    //如果已经调用则不接受新的
     if ($this->called)
       return;
     if ($this->multiCall()) {
