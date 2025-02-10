@@ -51,4 +51,9 @@ class LocalRPCPort implements IRPCCallPort {
 
     $this->table->addRange([getins("test1"),getins("test2")]);
   }
+  /**
+   * @inheritDoc
+   */
+  public function send(\AmqpRPC\RPCMessage $message): Promise\PromiseInterface {
+  }
 }

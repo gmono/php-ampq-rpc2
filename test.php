@@ -5,6 +5,9 @@ require_once __DIR__ . '/vendor/autoload.php';
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
+
+
+
 function test_rabbitmq_availability($host, $port, $user, $password, $vhost = 'bthost', $queue = 'test_queue') {
     try {
         // 创建连接

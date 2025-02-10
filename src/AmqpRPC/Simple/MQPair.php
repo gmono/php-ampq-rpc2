@@ -9,6 +9,7 @@ use Rx\Observable;
 use Rx\Subject\Subject;
 use function React\Promise\race;
 
+
 $loop = Factory::create();
 function setTimeout($cbk, $time)
 {
@@ -137,34 +138,8 @@ class MQPair implements IMQPair
 }
 
 
-class MQAddress
-{
-  public $host;
-  public $vhost;
-  public $port;
-  public $username;
-  public $password;
 
 
-
-}
-
-
-
-function jsonToClass($json, $className)
-{
-  $data = json_decode($json, true); // 将 JSON 解码为关联数组
-  if (is_array($data)) {
-    $object = new $className();
-    foreach ($data as $key => $value) {
-      if (property_exists($object, $key)) {
-        $object->$key = $value;
-      }
-    }
-    return $object;
-  }
-  return null;
-}
 
 
 
