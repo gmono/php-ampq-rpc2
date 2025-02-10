@@ -101,6 +101,7 @@ class HttpRPCClient
     $this->channel_send->exchangeDeclare("call_direct","direct");
     $this->channel_send_global->exchangeDeclare("call_fanout","fanout");
   }
+  //random global
   public function send($msg,$target="global")
   {
     $text=tojson($msg);
@@ -134,8 +135,11 @@ class HttpRPCClient
       echo "忽略一个返回值，callid:{$obj->callid}";
     }
   }
+
+  public static $RANDOM_CALL="random";
+  public static $GLOBAL_CALL="global";
   //进行调用 并等待
-  public function call($service,$funcname,$pars){
+  public function call($target,$service,$funcname,$pars){
 
     $res=new Deferred();
     $t=new HttpRPCCall($service,$funcname);
@@ -146,6 +150,7 @@ class HttpRPCClient
       else
         $res->reject($r->error);
     };
+    $this->send($t,$target);
     return $res->promise();
   }
 
@@ -158,17 +163,32 @@ class HttpRPCClient
 
 /**
  * 节点系统api 
- * 
+ * 基本api对象
  */
-class SystemServiceApi{
+class ServiceApi{
   public $client;
-  public function __construct(HttpRPCClient $client) {
+  public $target;
+  public function __construct(HttpRPCClient $client,$target=HttpRPCClient::$RANDOM_CALL) {
     $this->client= $client;
+    $this->target=$target;
   }
+
+  
+}
+
+
+//系统api
+class SystemApi extends ServiceApi{
   //函数
   public function Hello(array $texts){
     //测试函数
-    return $this->client->call("system","Hello",$texts);
+    return $this->client->call($this->target,"system","Hello",$texts);
   }
-  
+}
+
+
+class ManagerApi extends ServiceApi{
+  public function getProgramList(){
+    
+  }
 }
