@@ -148,4 +148,27 @@ class HttpRPCClient
     };
     return $res->promise();
   }
+
+
+
+  //----------核心功能函数
+
+
+}
+
+/**
+ * 节点系统api 
+ * 
+ */
+class SystemServiceApi{
+  public $client;
+  public function __construct(HttpRPCClient $client) {
+    $this->client= $client;
+  }
+  //函数
+  public function Hello(array $texts){
+    //测试函数
+    return $this->client->call("system","Hello",$texts);
+  }
+  
 }
