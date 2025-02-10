@@ -92,9 +92,9 @@ class ResultCallback
     return $this->type == 1;
   }
 
-  public $results = [];
+  private $results = [];
   //如果是单调用且已经设置了一个result则直接调用 如果是多调用则直接处理results数组
-  public function autoCall()
+  function autoCall()
   {
     if ($this->multiCall()) {
       $cbk = $this->cbk;
@@ -118,6 +118,7 @@ class ResultCallback
     //如果已经调用则不接受新的
     if ($this->called)
       return;
+    //多调用下超时调用call 否则直接调用call
     if ($this->multiCall()) {
       if ($this->isOverTime()) {
         $this->autoCall();
@@ -216,6 +217,12 @@ class HttpRPCClient
   {
 
   }
+
+  function checkCalled($callid){
+    $cbk=$this->getCallback($callid);
+    if($cbk== null) return ;
+    
+  }
   /**
    * 通用返回通道
    *  注意 msg为文本 json
@@ -227,6 +234,9 @@ class HttpRPCClient
     if ($cbk == null) {
       echo "忽略一个返回值，callid:{$obj->callid}";
     } else {
+      $cbk->putResult($obj);
+      
+      //调用cbk
       unset($this->callTable, $obj->callid);
     }
   }
