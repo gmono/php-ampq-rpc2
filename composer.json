@@ -2,7 +2,11 @@
     "name": "gmono/amqp-rpc",
     "description": "a packages using amqplib to call remote services",
     "type": "library",
-
+    "extra": {
+        "branch-alias": {
+            "http": "0.0.1-http"
+        }
+    },
     "autoload": {
         "psr-4": {
             "AmqpRPC\\": "src/"
