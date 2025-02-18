@@ -224,6 +224,7 @@ class HttpRPCClient
     
   }
   /**
+   * !重要函数 需要外部提供返回值（通过httppost提交）
    * 通用返回通道
    *  注意 msg为文本 json
    */
@@ -241,8 +242,8 @@ class HttpRPCClient
     }
   }
 
-  public static $RANDOM_CALL = "random";
-  public static $GLOBAL_CALL = "global";
+  public  const RANDOM_CALL = "random";
+  public const GLOBAL_CALL = "global";
   //进行调用 并等待
   public function call($target, $service, $funcname, $pars)
   {
@@ -275,7 +276,7 @@ class ServiceApi
 {
   public $client;
   public $target;
-  public function __construct(HttpRPCClient $client, $target = HttpRPCClient::$RANDOM_CALL)
+  public function __construct(HttpRPCClient $client, $target = HttpRPCClient::RANDOM_CALL)
   {
     $this->client = $client;
     $this->target = $target;
