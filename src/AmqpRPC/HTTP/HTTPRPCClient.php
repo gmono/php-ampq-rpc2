@@ -1,6 +1,13 @@
 <?php
 
+namespace AmqpRPC\HTTP;
+
+// use AmqpRPC\Lib;
+use AmqpRPC\Lib\MQAddress;
+use AmqpRPC\Lib\Util;
 use Bunny\Client;
+use ErrorException;
+use Exception;
 use Ramsey\Uuid\Rfc4122\UuidV1;
 use Ramsey\Uuid\Uuid;
 use React\Promise\Deferred;
@@ -51,7 +58,7 @@ class HttpRPCResult
 //反序列化到result对象
 function jsonToResult($text): HttpRPCResult
 {
-  return jsonToClass($text, "HttpRPCResult");
+  return Util::jsonToClass($text, "HttpRPCResult");
 }
 
 
