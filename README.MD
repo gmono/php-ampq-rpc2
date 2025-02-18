@@ -1,6 +1,6 @@
 # HTTP版本说明
 
-## 简单httprpc通信
+## HTTP Return RPC通信
 1. 提供一个putResult接口用于外部提交返回结果（可对接到同步http接口
 2. 提供一个中心的RPCClient类
 3. 提供数个包装RPCClient 通过client进行api调用的类
@@ -13,13 +13,13 @@ id为manager用于调用节点程序管理器api，支持获取节点程序列�
 
 
 
-# 主版本说明
+## 主版本说明
 基于amqp 的RPC库
-## 接口
+### 接口
 create(address,port,vhost) 自动配置交换机（使用topic交换机 基于service自动路由
 async call(serviceid,funcname,pars:[])->json result
 
-## 基本使用
+### 基本使用
 主要类:RPCClient
 自动装配：
 1. 注入RPCClient类型到服务容器中
