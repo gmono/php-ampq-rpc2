@@ -4,7 +4,7 @@
     "type": "library",
     "extra": {
         "branch-alias": {
-            "http": "0.0.1-http"
+            "http": "0.0.1-dev"
         }
     },
     "autoload": {
