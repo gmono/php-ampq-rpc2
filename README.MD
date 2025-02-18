@@ -1,6 +1,6 @@
-# HTTP版本说明
+# 版本说明
 
-## HTTP Return RPC通信
+## HTTP Return RPC通信版本
 1. 提供一个putResult接口用于外部提交返回结果（可对接到同步http接口
 2. 提供一个中心的RPCClient类
 3. 提供数个包装RPCClient 通过client进行api调用的类
