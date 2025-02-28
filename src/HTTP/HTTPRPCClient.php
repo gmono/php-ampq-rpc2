@@ -221,11 +221,7 @@ class HttpRPCClient
   }
 
 
-  public function multiReturn(HttpRPCResult $obj)
-  {
-
-  }
-
+  //
   function checkCalled($callid){
     $cbk=$this->getCallback($callid);
     if($cbk== null) return ;
@@ -260,6 +256,7 @@ class HttpRPCClient
     $res = new Deferred();
     $t = new HttpRPCCall($service, $funcname);
     $t->pars = $pars;
+    //todo:改为使用高级回调表
     $this->callTable[$t->callid] = function (HttpRPCResult $r) use ($res) {
       if ($r->error == null)
         $res->resolve($r->result);

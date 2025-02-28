@@ -39,7 +39,7 @@ function init()
 {
     global $client;
     $api=new SystemApi($client);
-    $api->
+    $api->setReturnUrl("xxxxxx");
 }
 
 function test_rabbitmq_availability($host, $port, $user, $password, $vhost = 'bthost', $queue = 'test_queue') {
