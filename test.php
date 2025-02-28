@@ -1,12 +1,46 @@
 <?php
 
 require_once __DIR__ . '/vendor/autoload.php';
-
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
+use AmqpRPC\HTTP\HttpRPCClient;
+use AmqpRPC\HTTP\SystemApi;
 
+use AmqpRPC\HTTP;
+use AmqpRPC\Lib\MQAddress;
 
+$addr=new MQAddress();
+$addr->host="159.75.243.179";
+$addr->vhost="bthost";
+$addr->username="test";
+$addr->password="testtest";
+$addr->port=5672;
+$client=new HttpRPCClient($addr);
+
+//tp5接口 post 文本body参数 直接传递到putResult
+function postResult(string $jsontext){
+    global $client;
+    $client->putResult($jsontext);
+}
+
+//其他接口 调用api并设置返回后执行的操作
+function otherPort(){
+    global $client;
+    $api=new SystemApi($client);
+    $api->Hello(["1","2"])->then(function($res){
+        echo $res;
+    })->catch(function($err){
+        echo $err;
+    });
+}
+
+function init()
+{
+    global $client;
+    $api=new SystemApi($client);
+    $api->
+}
 
 function test_rabbitmq_availability($host, $port, $user, $password, $vhost = 'bthost', $queue = 'test_queue') {
     try {

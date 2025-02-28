@@ -188,6 +188,7 @@ class HttpRPCClient
         $this->channel_send->publish($text, [], "call_direct", "random_call");
         break;
       case "global":
+        //全局发送 会被多次调用putResult
         $this->channel_send_global->publish($text, [], "publish_call", "call_fanout");
         break;
       default:
@@ -255,6 +256,7 @@ class HttpRPCClient
   public function call($target, $service, $funcname, $pars)
   {
 
+    //call为 单调用 如果 多次调用putResult则后续会被忽略(取决于promise 的处理策略 可能会多次调用)
     $res = new Deferred();
     $t = new HttpRPCCall($service, $funcname);
     $t->pars = $pars;
@@ -282,14 +284,21 @@ class HttpRPCClient
 class ServiceApi
 {
   public $client;
-  public $target;
-  public function __construct(HttpRPCClient $client, $target = HttpRPCClient::RANDOM_CALL)
+
+  
+  //默认target
+  public $service;
+  public function __construct(HttpRPCClient $client,string $service)
   {
     $this->client = $client;
-    $this->target = $target;
+    $this->service= $service;
   }
-
-
+  public function randomCall($name,$par){
+    return $this->client->call(HttpRPCClient::RANDOM_CALL,$this->service,$name,$par);
+  }
+  public function globalCall($name,$par){
+    return $this->client->call(HttpRPCClient::GLOBAL_CALL,$this->service,$name,$par);
+  }
 }
 
 
@@ -300,12 +309,22 @@ class SystemApi extends ServiceApi
   public function Hello(array $texts)
   {
     //测试函数
-    return $this->client->call($this->target, "system", "Hello", $texts);
+    return $this->randomCall("Hello",$texts);
   }
   //广播消息
   public function getNodeList()
   {
+    
+  }
 
+  public function setReturnUrl($url){
+    return $this->globalCall("SetReturnUrl",$url);
+  }
+
+  /**
+   */
+  public function __construct($client) {
+    parent::__construct($client,"system");
   }
 }
 
@@ -315,5 +334,10 @@ class ManagerApi extends ServiceApi
   public function getProgramList()
   {
 
+  }
+
+  
+  public function __construct($client) {
+    parent::__construct($client,"manager");
   }
 }
